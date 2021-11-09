@@ -1,14 +1,15 @@
 package com.github.berenika2.restassuredframework.tests.pet;
 
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import com.github.berenika2.restassuredframework.main.properties.EnvironmentConfig;
 import com.github.berenika2.restassuredframework.main.pojo.Category;
 import com.github.berenika2.restassuredframework.main.pojo.Pet;
 import com.github.berenika2.restassuredframework.main.pojo.Tag;
-
+import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import org.aeonbits.owner.ConfigFactory;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import java.util.Collections;
 
 import static io.restassured.RestAssured.given;
@@ -18,8 +19,9 @@ public class CreatePetTests {
 
     @BeforeMethod
     public void setupConfiguration() {
-        RestAssured.baseURI = "https://swaggerpetstore.przyklady.javastart.pl";
-        RestAssured.basePath = "v2";
+        EnvironmentConfig environmentConfig = ConfigFactory.create(EnvironmentConfig.class);
+        RestAssured.baseURI = environmentConfig.baseUri();
+        RestAssured.basePath = environmentConfig.basePath();
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
     }
 
