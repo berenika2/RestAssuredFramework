@@ -2,7 +2,6 @@ package com.github.berenika2.restassuredframework.tests.user;
 
 import com.github.berenika2.restassuredframework.main.pojo.ApiResponse;
 import com.github.berenika2.restassuredframework.main.pojo.user.User;
-import com.github.berenika2.restassuredframework.tests.user.UserTestDataGenerator;
 import com.github.berenika2.restassuredframework.tests.testbases.SuiteTestBase;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -13,7 +12,7 @@ import static org.testng.Assert.assertEquals;
 public class CreateUserTests extends SuiteTestBase {
 
     private User user;
-    
+
     @Test
     public void givenUserWhenPostUserThenUserIsCreatedTest() {
        UserTestDataGenerator userTestDataGenerator = new UserTestDataGenerator();
