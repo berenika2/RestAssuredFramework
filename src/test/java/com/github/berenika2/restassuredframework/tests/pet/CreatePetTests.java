@@ -1,9 +1,10 @@
 package com.github.berenika2.restassuredframework.tests.pet;
 
 import com.github.berenika2.restassuredframework.main.properties.EnvironmentConfig;
-import com.github.berenika2.restassuredframework.main.pojo.Category;
-import com.github.berenika2.restassuredframework.main.pojo.Pet;
-import com.github.berenika2.restassuredframework.main.pojo.Tag;
+import com.github.berenika2.restassuredframework.main.pojo.pet.Category;
+import com.github.berenika2.restassuredframework.main.pojo.pet.Pet;
+import com.github.berenika2.restassuredframework.main.pojo.pet.Tag;
+import com.github.berenika2.restassuredframework.tests.testbases.SuiteTestBase;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -15,15 +16,7 @@ import java.util.Collections;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 
-public class CreatePetTests {
-
-    @BeforeMethod
-    public void setupConfiguration() {
-        EnvironmentConfig environmentConfig = ConfigFactory.create(EnvironmentConfig.class);
-        RestAssured.baseURI = environmentConfig.baseUri();
-        RestAssured.basePath = environmentConfig.basePath();
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-    }
+public class CreatePetTests extends SuiteTestBase {
 
     @Test
     public void givenPetWhenPostPetThenPetIsCreatedTest() {

@@ -1,4 +1,4 @@
-package com.github.berenika2.restassuredframework.main.pojo;
+package com.github.berenika2.restassuredframework.main.pojo.pet;
 
     public class Category {
 
