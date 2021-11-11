@@ -22,7 +22,7 @@ public class CreatePetTests extends SuiteTestBase {
     public void givenPetWhenPostPetThenPetIsCreatedTest() {
 
         Pet pet = new PetTestDataGenerator().generatePet();
-        
+
         Pet actualPet = given().body(pet).contentType("application/json")
                 .when().post("pet")
                 .then().statusCode(200).extract().as(Pet.class);
