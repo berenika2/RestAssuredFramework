@@ -3,6 +3,7 @@ package com.github.berenika2.restassuredframework.tests.user;
 import com.github.berenika2.restassuredframework.main.pojo.ApiResponse;
 import com.github.berenika2.restassuredframework.main.pojo.user.User;
 import com.github.berenika2.restassuredframework.tests.testbases.SuiteTestBase;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -23,20 +24,15 @@ public class CreateUserTests extends SuiteTestBase {
                 .when().post("user")
                 .then().statusCode(200).extract().as(ApiResponse.class);
 
-        assertEquals(apiResponse.getCode(), Integer.valueOf(200), "Code");
-        assertEquals(apiResponse.getType(), "unknown", "Type");
-        assertEquals(apiResponse.getMessage(), user.getId().toString(), "Message");
+        Assertions.assertThat(user).describedAs("Send User was different than received by API").usingRecursiveComparison().isEqualTo(user);
     }
 
     @AfterMethod
     public void cleanUpAfterTest(){
         ApiResponse apiResponse = given().contentType("application/json")
-                .when().delete("user/{username}", user.getUsername()) // Usuwamy użytkownika z podanym username
+                .when().delete("user/{username}", user.getUsername())
                 .then().statusCode(200).extract().as(ApiResponse.class);
 
-        assertEquals(apiResponse.getCode(), Integer.valueOf(200), "Code");
-        assertEquals(apiResponse.getType(), "unknown", "Type");
-        assertEquals(apiResponse.getMessage(), user.getUsername(), "Message"); // Sprawdzamy, czy w odpowiedzi systemu znajduje się usunięte username użytkownika
-    }
+        Assertions.assertThat(user).describedAs("Send user was different than received by API").usingRecursiveComparison().isEqualTo(user);}
 
 }
