@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApiResponse {
+
     private Integer code;
     private String type;
     private String message;
@@ -34,10 +35,11 @@ public class ApiResponse {
     }
 
     public Map<String, Object> getAdditionalProperties() {
-        return additionalProperties;
+        return this.additionalProperties;
     }
 
-    public void setAdditionalProperties(Map<String, Object> additionalProperties) {
-        this.additionalProperties = additionalProperties;
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
+
 }

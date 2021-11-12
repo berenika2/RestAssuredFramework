@@ -3,6 +3,7 @@ package com.github.berenika2.restassuredframework.tests.pet;
 import com.github.berenika2.restassuredframework.main.pojo.ApiResponse;
 import com.github.berenika2.restassuredframework.main.pojo.pet.Pet;
 import com.github.berenika2.restassuredframework.main.request.configuration.RequestConfigurationBuilder;
+import com.github.berenika2.restassuredframework.main.rop.CreatePetEndpoint;
 import com.github.berenika2.restassuredframework.tests.testbases.SuiteTestBase;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.AfterMethod;
@@ -20,9 +21,8 @@ public class CreatePetTests extends SuiteTestBase {
 
         Pet pet = new PetTestDataGenerator().generatePet();
 
-        actualPet = given().spec(RequestConfigurationBuilder.getDefaultRequestSpecification()).body(pet)
-                .when().post("pet")
-                .then().statusCode(HttpStatus.SC_OK).extract().as(Pet.class);
+        actualPet = new CreatePetEndpoint().setPet(pet).sendRequest().assertRequestSuccess().getResponseModel();
+
         Assertions.assertThat(actualPet).describedAs("Send Pet was different than received by API").usingRecursiveComparison().isEqualTo(pet);
     }
 

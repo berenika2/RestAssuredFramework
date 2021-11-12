@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Smoke tests">
+    <test name="User/Pet">
+        <classes>
+            <class name="com.github.berenika2.restassuredframework.tests.user.CreateUserTests"/>
+            <class name="com.github.berenika2.restassuredframework.tests.pet.CreatePetTests"/>
+        </classes>
+    </test>
+</suite>
