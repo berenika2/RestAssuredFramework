@@ -2,13 +2,14 @@ package com.github.berenika2.restassuredframework.tests.pet;
 
 import com.github.berenika2.restassuredframework.main.pojo.ApiResponse;
 import com.github.berenika2.restassuredframework.main.pojo.pet.Pet;
+import com.github.berenika2.restassuredframework.main.request.configuration.RequestConfigurationBuilder;
 import com.github.berenika2.restassuredframework.tests.testbases.SuiteTestBase;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
 
 public class CreatePetTests extends SuiteTestBase {
 
@@ -19,22 +20,21 @@ public class CreatePetTests extends SuiteTestBase {
 
         Pet pet = new PetTestDataGenerator().generatePet();
 
-        actualPet = given().body(pet).contentType("application/json")
+        actualPet = given().spec(RequestConfigurationBuilder.getDefaultRequestSpecification()).body(pet)
                 .when().post("pet")
-                .then().statusCode(200).extract().as(Pet.class);
-        pet.setName("Diego");
+                .then().statusCode(HttpStatus.SC_OK).extract().as(Pet.class);
         Assertions.assertThat(actualPet).describedAs("Send Pet was different than received by API").usingRecursiveComparison().isEqualTo(pet);
     }
 
     @AfterMethod
     public void cleanUpAfterTest(){
 
-        ApiResponse apiResponse = given().contentType("application/json")
+        ApiResponse apiResponse = given().spec(RequestConfigurationBuilder.getDefaultRequestSpecification())
                 .when().delete("pet/{petId}", actualPet.getId())
-                .then().statusCode(200).extract().as(ApiResponse.class);
+                .then().statusCode(HttpStatus.SC_OK).extract().as(ApiResponse.class);
 
         ApiResponse expectedApiResponse = new ApiResponse();
-        expectedApiResponse.setCode(200);
+        expectedApiResponse.setCode(HttpStatus.SC_OK);
         expectedApiResponse.setType("unknown");
         expectedApiResponse.setMessage(actualPet.getId().toString());
 
