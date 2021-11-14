@@ -5,6 +5,7 @@ import com.github.berenika2.restassuredframework.main.pojo.pet.Pet;
 import com.github.berenika2.restassuredframework.main.request.configuration.RequestConfigurationBuilder;
 import com.github.berenika2.restassuredframework.main.rop.CreatePetEndpoint;
 import com.github.berenika2.restassuredframework.tests.testbases.SuiteTestBase;
+import io.qameta.allure.Description;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -16,6 +17,7 @@ public class CreatePetTests extends SuiteTestBase {
 
     private Pet actualPet;
 
+    @Description("Create pet and check if returned Pet object is the same")
     @Test
     public void givenPetWhenPostPetThenPetIsCreatedTest() {
 

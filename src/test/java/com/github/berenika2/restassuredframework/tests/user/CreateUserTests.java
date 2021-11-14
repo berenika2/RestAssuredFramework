@@ -5,6 +5,8 @@ import com.github.berenika2.restassuredframework.main.pojo.user.User;
 import com.github.berenika2.restassuredframework.main.request.configuration.RequestConfigurationBuilder;
 import com.github.berenika2.restassuredframework.main.rop.CreateUserEndpoint;
 import com.github.berenika2.restassuredframework.tests.testbases.SuiteTestBase;
+
+import io.qameta.allure.Description;
 import org.apache.http.HttpStatus;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.AfterMethod;
@@ -16,6 +18,7 @@ public class CreateUserTests extends SuiteTestBase {
 
     private User user;
 
+    @Description("Create user and check if returned User object is the same")
     @Test
     public void givenUserWhenPostUserThenUserIsCreatedTest() {
         UserTestDataGenerator userTestDataGenerator = new UserTestDataGenerator();
