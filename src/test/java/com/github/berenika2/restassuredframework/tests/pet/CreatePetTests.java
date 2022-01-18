@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class CreatePetTests extends SuiteTestBase {
 
@@ -26,6 +28,8 @@ public class CreatePetTests extends SuiteTestBase {
         actualPet = new CreatePetEndpoint().setPet(pet).sendRequest().assertRequestSuccess().getResponseModel();
 
         Assertions.assertThat(actualPet).describedAs("Send Pet was different than received by API").usingRecursiveComparison().isEqualTo(pet);
+
+        assertThat("Status code is not 200", 200, equalTo(200));
     }
 
     @AfterMethod
