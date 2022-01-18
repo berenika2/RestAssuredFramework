@@ -44,7 +44,7 @@ public class CreatePetTests extends SuiteTestBase {
         expectedApiResponse.setType("unknown");
         expectedApiResponse.setMessage(actualPet.getId().toString());
 
-        Assertions.assertThat(apiResponse).describedAs("API Response from system was not as expected").usingRecursiveComparison().isEqualTo(expectedApiResponse);
+        Assertions.assertThat(apiResponse).describedAs("API Response from system was not as expected 2").usingRecursiveComparison().isEqualTo(expectedApiResponse);
     }
 
 
