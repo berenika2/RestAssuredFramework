@@ -11,6 +11,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.apache.http.HttpStatus;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -30,6 +33,18 @@ public class CreatePetTests extends SuiteTestBase {
         Assertions.assertThat(actualPet).describedAs("Send Pet was different than received by API").usingRecursiveComparison().isEqualTo(pet);
 
         assertThat("Status code is not 200", 200, equalTo(200));
+    }
+
+    @Test
+    public void givenPetWhenPostPetThenPetIsCreatedTest2() {
+
+        Pet pet = new PetTestDataGenerator().generatePet();
+
+        Pet[] pets = given().log().all().body(pet).contentType("application/json")
+                .queryParam("status", "sold")
+                .when().get("https://swaggerpetstore.przyklady.javastart.pl/v2/pet/findByStatus")
+                .then().log().all().statusCode(200).extract().as(Pet[].class);
+
     }
 
     @AfterMethod
